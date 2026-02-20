@@ -1,0 +1,54 @@
+version: "3.8"
+
+services:
+
+  backend:
+
+    build: ./backend
+
+    ports:
+
+      - "4000:4000"
+
+    environment:
+
+      - MONGO_URL=mongodb://mongo:27017/foodapp
+
+      - JWT_SECRET=${JWT_SECRET}
+
+      - STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY}
+
+    depends_on:
+
+      - mongo
+ 
+  frontend:
+
+    build: ./frontend
+
+    ports:
+
+      - "80:80"
+
+    environment:
+
+      - VITE_SERVER_URL=http://backend:4000
+ 
+  mongo:
+
+    image: mongo:latest
+
+    ports:
+
+      - "27017:27017"
+
+    volumes:
+
+      - mongo_data:/data/db
+ 
+volumes:
+
+  mongo_data:
+ 
+tq so much
+ 
